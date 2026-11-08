@@ -21,7 +21,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-frontend:latest
+          tags: salalhamza/nextjs-frontend:latest
 
       - name: Deploy to K8s Master via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -31,7 +31,7 @@ jobs:
           key: ${{ secrets.K8S_SSH_KEY }}
           port: 22
           script: |
-            cat <<'EOF' | sed "s|DOCKERHUB_USERNAME|${{ secrets.DOCKERHUB_USERNAME }}|g" | kubectl apply -f -
+            cat <<'EOF' | kubectl apply -f -
             apiVersion: apps/v1
             kind: Deployment
             metadata:
@@ -49,7 +49,7 @@ jobs:
                 spec:
                   containers:
                     - name: frontend
-                      image: DOCKERHUB_USERNAME/nextjs-frontend:latest
+                      image: salalhamza/nextjs-frontend:latest
                       imagePullPolicy: Always
                       ports:
                         - containerPort: 3000
