@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE = "http://16.176.160.92:30008";
+const API_BASE = "http://13.54.25.169:30008";;
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
